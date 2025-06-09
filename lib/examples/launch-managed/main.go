@@ -4,9 +4,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/launcher"
-	"github.com/go-rod/rod/lib/utils"
+	"github.com/halicoming/rod"
+	"github.com/halicoming/rod/lib/launcher"
+	"github.com/halicoming/rod/lib/utils"
 )
 
 func main() {

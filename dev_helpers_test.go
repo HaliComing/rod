@@ -4,12 +4,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/defaults"
-	"github.com/go-rod/rod/lib/js"
-	"github.com/go-rod/rod/lib/launcher"
-	"github.com/go-rod/rod/lib/proto"
-	"github.com/go-rod/rod/lib/utils"
+	"github.com/halicoming/rod"
+	"github.com/halicoming/rod/lib/defaults"
+	"github.com/halicoming/rod/lib/js"
+	"github.com/halicoming/rod/lib/launcher"
+	"github.com/halicoming/rod/lib/proto"
+	"github.com/halicoming/rod/lib/utils"
 	"github.com/ysmood/gson"
 )
 
