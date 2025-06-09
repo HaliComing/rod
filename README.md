@@ -21,7 +21,6 @@ customize or build up their own version of Rod, the high-level functions are jus
 - High-level helpers like WaitStable, WaitRequestIdle, HijackRequests, WaitDownload, etc
 - Two-step WaitEvent design, never miss an event ([how it works](https://github.com/ysmood/goob))
 - Correctly handles nested iframes or shadow DOMs
-- No zombie browser process after the crash ([how it works](https://github.com/ysmood/leakless))
 - [CI](https://github.com/go-rod/rod/actions) enforced 100% test coverage
 
 ## Examples

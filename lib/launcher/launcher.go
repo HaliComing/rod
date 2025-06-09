@@ -4,7 +4,6 @@ package launcher
 import (
 	"context"
 	"crypto"
-	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -17,7 +16,6 @@ import (
 	"github.com/go-rod/rod/lib/defaults"
 	"github.com/go-rod/rod/lib/launcher/flags"
 	"github.com/go-rod/rod/lib/utils"
-	"github.com/ysmood/leakless"
 )
 
 // DefaultUserDataDirPrefix ...
@@ -431,22 +429,16 @@ func (l *Launcher) Launch() (string, error) {
 
 	l.setupUserPreferences()
 
-	var ll *leakless.Launcher
 	var cmd *exec.Cmd
 
 	args := l.FormatArgs()
 
-	if l.Has(flags.Leakless) && leakless.Support() {
-		ll = leakless.New()
-		cmd = ll.Command(bin, args...)
-	} else {
-		port := l.Get(flags.RemoteDebuggingPort)
-		u, err := ResolveURL(port)
-		if err == nil {
-			return u, nil
-		}
-		cmd = exec.Command(bin, args...)
+	port := l.Get(flags.RemoteDebuggingPort)
+	u, err := ResolveURL(port)
+	if err == nil {
+		return u, nil
 	}
+	cmd = exec.Command(bin, args...)
 
 	l.setupCmd(cmd)
 
@@ -455,21 +447,14 @@ func (l *Launcher) Launch() (string, error) {
 		return "", err
 	}
 
-	if ll == nil {
-		l.pid = cmd.Process.Pid
-	} else {
-		l.pid = <-ll.Pid()
-		if ll.Err() != "" {
-			return "", errors.New(ll.Err())
-		}
-	}
+	l.pid = cmd.Process.Pid
 
 	go func() {
 		_ = cmd.Wait()
 		close(l.exit)
 	}()
 
-	u, err := l.getURL()
+	u, err = l.getURL()
 	if err != nil {
 		l.Kill()
 		return "", err

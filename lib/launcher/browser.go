@@ -16,7 +16,6 @@ import (
 	"github.com/go-rod/rod/lib/defaults"
 	"github.com/go-rod/rod/lib/utils"
 	"github.com/ysmood/fetchup"
-	"github.com/ysmood/leakless"
 )
 
 // Host formats a revision number to a downloadable URL for the browser.
@@ -153,7 +152,6 @@ func (lc *Browser) Download() error {
 // Get is a smart helper to get the browser executable path.
 // If [Browser.BinPath] is not valid it will auto download the browser to [Browser.BinPath].
 func (lc *Browser) Get() (string, error) {
-	defer leakless.LockPort(lc.LockPort)()
 
 	if lc.Validate() == nil {
 		return lc.BinPath(), nil
